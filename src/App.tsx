@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { TopicBtn } from "./components/Topic"
+import { TopicSelectionMenu } from "./components/Topic"
 
 const StartBtn = ({disabled, handler}:{disabled: boolean, handler: () => void}) => {
   return (
@@ -39,28 +39,25 @@ const App = () => {
             <div className="ml-2 mr-2">Guess which videos has more views by looking only at their thumbnails.</div>
           </div>
       </header>
-      {!startGame &&
-      <>
-        <div className="flex flex-col items-center">
-          <div>
-            <h2>Choose a topic</h2>
-            <div>
-              {topics.map(topic => {
-                return <TopicBtn name={topic} handler={() => {setSelectedTopic(topic)}} />
-              })}
-            </div>
-          </div>
-          <div>
-            <span>
-              {selectedTopic === '' ? 'Select a topic to proceed' : `You have selected the topic (${selectedTopic})`}
-            </span>
-          </div>
-          <div>
-            <StartBtn disabled={selectedTopic === ''} handler={() => setStartGame(true)} />
-          </div>
+      {!startGame && 
+      <div className="flex flex-col items-center">
+        <TopicSelectionMenu 
+          topics={topics} 
+          selectedTopic={selectedTopic}
+          setSelectedTopic={setSelectedTopic}
+        />
+        <div>
+          <StartBtn disabled={selectedTopic === ''} handler={() => setStartGame(true)} />
         </div>
-      </>
+      </div>
       }
+
+
+      {startGame && (
+        <div className="flex flex-col items-center">
+          <h2>0/20</h2>
+        </div>
+      )}
     </>
   )
 }
