@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { TopicSelectionMenu } from "./components/Topic"
+import { Game } from "./components/Game"
 
 const StartBtn = ({disabled, handler}:{disabled: boolean, handler: () => void}) => {
   return (
@@ -54,9 +55,7 @@ const App = () => {
 
 
       {startGame && (
-        <div className="flex flex-col items-center">
-          <h2>0/20</h2>
-        </div>
+        <Game />
       )}
     </>
   )
