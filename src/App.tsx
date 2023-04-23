@@ -24,7 +24,7 @@ const StartBtn = ({disabled, handler}:{disabled: boolean, handler: () => void}) 
   )
 }
 
-function App() {
+const App = () => {
 
   const [startGame, setStartGame] = useState(false)
   const [selectedTopic, setSelectedTopic] = useState('')
@@ -33,14 +33,14 @@ function App() {
 
   return (
     <>
-      {!startGame &&
-      <>
-        <header className="flex justify-center items-center h-20 bg-blue-100">
+      <header className="flex justify-center items-center h-20 bg-blue-100">
           <div className="columns-1">
             <h1 className="text-2xl font-bold text-center">Video Guessr</h1>
             <div className="ml-2 mr-2">Guess which videos has more views by looking only at their thumbnails.</div>
           </div>
-        </header>
+      </header>
+      {!startGame &&
+      <>
         <div className="flex flex-col items-center">
           <div>
             <h2>Choose a topic</h2>
