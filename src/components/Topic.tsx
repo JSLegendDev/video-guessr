@@ -31,8 +31,8 @@ export const TopicSelectionMenu = ({
             <div>
             <h2>Choose a topic</h2>
             <div>
-                {topics.map(topic => {
-                return <TopicBtn name={topic} handler={() => {setSelectedTopic(topic)}} />
+                {topics.map((topic, index) => {
+                return <TopicBtn key={index} name={topic} handler={() => {setSelectedTopic(topic)}} />
                 })}
             </div>
             </div>
