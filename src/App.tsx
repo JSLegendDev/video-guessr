@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { TopicSelectionMenu } from "./components/Topic"
 import { Game } from "./components/Game"
+import { getRandomInstance } from "./instances"
 
 export interface Video {
   title: string
@@ -40,8 +41,8 @@ const App = () => {
   useEffect(() => {
     if (selectedTopic === '') return
     const fetchVideos = async () => {
-      const instance = "https://vid.puffyan.us/api/v1/search"
-      const response = await fetch(`${instance}?q=${selectedTopic}&type=video`)
+      const instance = getRandomInstance()
+      const response = await fetch(`${instance}/api/v1/search?q=${selectedTopic}&type=video`)
       const results = await response.json()
       let videos = []
       for (const result of results) {
@@ -67,23 +68,27 @@ const App = () => {
             <div className="ml-2 mr-2 text-center">Guess which videos has more views by looking only at the thumbnail + title.</div>
           </div>
       </header>
-      {!startGame && 
+
       <div className="flex flex-col items-center">
-        <TopicSelectionMenu 
-          topics={topics} 
-          selectedTopic={selectedTopic}
-          setSelectedTopic={setSelectedTopic}
-        />
-        <div>
-          <StartBtn disabled={selectedTopic === ''} handler={() => setStartGame(true)} />
-        </div>
-      </div>
+      {!startGame && 
+        <>
+          <TopicSelectionMenu 
+            topics={topics} 
+            selectedTopic={selectedTopic}
+            setSelectedTopic={setSelectedTopic}
+          />
+          <div>
+            <StartBtn disabled={selectedTopic === ''} handler={() => setStartGame(true)} />
+          </div>
+        </>
       }
-
-
-      {startGame && (
-        <Game videos={videos} />
+      {startGame && videos.length === 0 && (
+        <span>Loading...</span>
       )}
+      {startGame && videos.length !== 0 && (
+      <Game videos={videos} />
+      )}
+    </div>
     </>
   )
 }
