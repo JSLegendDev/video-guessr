@@ -58,7 +58,10 @@ const App = () => {
     fetchVideos()
   }, [startGame])
 
-  const topics = ["Gaming", "Science", "Programming", "Sports", "Technology"]
+  const topics = [
+    "Gaming", "Science", "Programming", "Technology",
+    "Basketball", "Football", "Podcasts"
+  ]
 
   return (
     <>
@@ -70,24 +73,24 @@ const App = () => {
       </header>
 
       <div className="flex flex-col items-center">
-      {!startGame && 
-        <>
-          <TopicSelectionMenu 
-            topics={topics} 
-            selectedTopic={selectedTopic}
-            setSelectedTopic={setSelectedTopic}
-          />
-          <div>
-            <StartBtn disabled={selectedTopic === ''} handler={() => setStartGame(true)} />
-          </div>
-        </>
-      }
-      {startGame && videos.length === 0 && (
-        <span>Loading...</span>
-      )}
-      {startGame && videos.length !== 0 && (
-      <Game videos={videos} />
-      )}
+        {!startGame && 
+          <>
+            <TopicSelectionMenu 
+              topics={topics} 
+              selectedTopic={selectedTopic}
+              setSelectedTopic={setSelectedTopic}
+            />
+            <div>
+              <StartBtn disabled={selectedTopic === ''} handler={() => setStartGame(true)} />
+            </div>
+          </>
+        }
+        {startGame && videos.length === 0 && (
+          <span>Loading...</span>
+        )}
+        {startGame && videos.length !== 0 && (
+          <Game videos={videos} />
+        )}
     </div>
     </>
   )

@@ -10,7 +10,7 @@ export const TopicBtn = ({name, handler}:{name: string, handler: () => void}) =>
         rounded-full 
         py-1 
         px-4 
-        m-2
+        m-1
         text-center">
             {name}
         </button>
@@ -29,12 +29,12 @@ export const TopicSelectionMenu = ({
     return (
         <>
             <div>
-            <h2>Choose a topic</h2>
-            <div>
-                {topics.map((topic, index) => {
-                return <TopicBtn key={index} name={topic} handler={() => {setSelectedTopic(topic)}} />
-                })}
-            </div>
+                <h2 className="text-center">Choose a topic</h2>
+                <div className="flex flex-wrap flex-row justify-center">
+                    {topics.map((topic, index) => {
+                    return <TopicBtn key={index} name={topic} handler={() => {setSelectedTopic(topic)}} />
+                    })}
+                </div>
             </div>
             <div>
             <span>
