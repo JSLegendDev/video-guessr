@@ -8,8 +8,7 @@ export function getRandomInstance() {
         "https://invidious.nerdvpn.de",
         "https://invidious.tiekoetter.com",
         "https://yt.artemislena.eu",
-        "https://iv.ggtyler.dev",
-        "https://yt.funami.tech"
+        "https://iv.ggtyler.dev"
     ]
 
     return INSTANCES[Math.floor(Math.random() * INSTANCES.length)] 

@@ -41,9 +41,21 @@ const App = () => {
   useEffect(() => {
     if (selectedTopic === '') return
     const fetchVideos = async () => {
-      const instance = getRandomInstance()
-      const response = await fetch(`${instance}/api/v1/search?q=${selectedTopic}&type=video`)
-      const results = await response.json()
+        
+      let getVideos = true
+      let response
+      let results
+      let instance = getRandomInstance()
+      while (getVideos) {
+        try {
+          response = await fetch(`${instance}/api/v1/search?q=${selectedTopic}&type=video`)
+          results = await response.json()
+          getVideos = false
+        } catch {
+          instance = getRandomInstance()
+        }
+      }
+     
       let videos = []
       for (const result of results) {
         videos.push({
