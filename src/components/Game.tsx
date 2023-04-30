@@ -14,6 +14,11 @@ const VideoContainer = ({
   displayViews: boolean
   isMostPopular: boolean
 }) => {
+
+  const [displayLowresImg, setDisplayLowresImg] = useState(false)
+
+  useEffect(() => setDisplayLowresImg(false), [video])
+  
   return (
     <div className={`
       p-2 
@@ -26,8 +31,15 @@ const VideoContainer = ({
       ${selected && !displayViews ? "bg-blue-200" : null}
       ${displayViews && isMostPopular ? "bg-green-200" : null}
       ${displayViews && !isMostPopular ? "bg-red-200" : null}
-      `}>
-      <img className="rounded-md border border-gray-100 shadow-sm" src={video.thumbnailUrl} />
+      `}
+      >
+      <img 
+        className="rounded-md border border-gray-100 shadow-sm" 
+        onClick={() => setDisplayLowresImg(true)}
+        src={
+          displayLowresImg ? video.thumbnailUrl + "/mqdefault.jpg" : video.thumbnailUrl + "/maxresdefault.jpg"
+        } 
+      />
       <p className="flex-1">{video.title}</p>
       { displayViews ? <p>{video.views.toLocaleString()} views</p> :
           <button 
@@ -50,7 +62,13 @@ const VideoContainer = ({
   )
 }
 
-export const Game = ({videos}:{videos: Array<Video>}) => {
+export const Game = ({
+  videos,
+  endGameCallBack
+}:{
+  videos: Array<Video>,
+  endGameCallBack: () => void,
+}) => {
   
   const [points, setPoints] = useState(0)
   const [currentQuestionNb, setCurrentQuestionNb] = useState(1)
@@ -90,22 +108,24 @@ export const Game = ({videos}:{videos: Array<Video>}) => {
           <p className="mr-2 text-center">Points : {points}</p>
           <p className="ml-2">Question No : {currentQuestionNb}/20</p>
         </div>
-        <div className="flex flex-wrap flex-row justify-center">
-          <VideoContainer 
-            video={firstVideo} 
-            onClick={() => setSelectedVideo('first')} 
-            selected={selectedVideo === 'first'}
-            displayViews={showResults}
-            isMostPopular={mostPopularVideo === 'first'} 
-          />
-          <VideoContainer 
-            video={secondVideo} 
-            onClick={() => setSelectedVideo('second')}
-            selected={selectedVideo === 'second'}
-            displayViews={showResults}
-            isMostPopular={mostPopularVideo === 'second'} 
-          />
-        </div>
+        { !isGameOver &&
+          <div className="flex flex-wrap flex-row justify-center">
+            <VideoContainer 
+              video={firstVideo} 
+              onClick={() => setSelectedVideo('first')} 
+              selected={selectedVideo === 'first'}
+              displayViews={showResults}
+              isMostPopular={mostPopularVideo === 'first'} 
+            />
+            <VideoContainer 
+              video={secondVideo} 
+              onClick={() => setSelectedVideo('second')}
+              selected={selectedVideo === 'second'}
+              displayViews={showResults}
+              isMostPopular={mostPopularVideo === 'second'} 
+            />
+          </div>
+        }
         {
           selectedVideo !== 'none' && !showResults && !isGameOver && 
           <div className="flex flex-wrap flex-col justify-center">
@@ -143,7 +163,7 @@ export const Game = ({videos}:{videos: Array<Video>}) => {
             onClick={() => {
               setCurrentQuestionNb(currentQuestionNb + 1)
               setShowResults(false)
-              if (videos.length < 2) {
+              if (currentQuestionNb === 20) {
                 setIsGameOver(true)
                 return
               }
@@ -168,7 +188,18 @@ export const Game = ({videos}:{videos: Array<Video>}) => {
         {
           isGameOver &&
           <div className="flex flex-wrap flex-col justify-center">
-            <p>Game is over!</p>
+            <p className="text-center text-3xl font-bold m-8">Game is over!</p>
+            <button className="
+              bg-red-500
+              hover:bg-red-700 
+              text-white 
+              rounded-full 
+              py-1 
+              px-4 
+              m-8
+            "
+            onClick={endGameCallBack}
+            >Play again</button>
           </div>
         }
       </>

@@ -45,24 +45,24 @@ const App = () => {
       let videos = []
       let currentPage = 1
 
-      while(videos.length < 40) {
+      while(videos.length < 50) {
         
         try {
           const instance = getRandomInstance()
-          const response = await fetch(`${instance}/api/v1/search?q=${selectedTopic}&type=video&sort_by=rating&page=${currentPage}`)
+          const response = await fetch(`${instance}/api/v1/search?q="${selectedTopic} videos"&type=video&sort_by=rating&page=${currentPage}`)
           const results = await response.json()
 
           for (const result of results) {
             videos.push({
               title: result.title,
-              thumbnailUrl: `https://i.ytimg.com/vi/${result.videoId}/mqdefault.jpg`,
+              thumbnailUrl: `https://i.ytimg.com/vi/${result.videoId}`,
               views: result.viewCount
             })
           }
 
           currentPage++
         } catch {} // there is no need to catch in case an instance doesn't work
-      }
+      }``
 
       setVideos(videos)
     }
@@ -71,7 +71,7 @@ const App = () => {
   }, [startGame])
 
   const topics = [
-    "Gaming", "Programming", "Video Games", "Game Development",
+    "Mario", "Programming Tutorials", "Minecraft", "Game Development",
   ]
 
   return (
@@ -100,7 +100,7 @@ const App = () => {
           <span>Loading...</span>
         )}
         {startGame && videos.length !== 0 && (
-          <Game videos={videos} />
+          <Game videos={videos} endGameCallBack={() => setStartGame(false)} />
         )}
     </div>
     </>
