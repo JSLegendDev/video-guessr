@@ -41,29 +41,29 @@ const App = () => {
   useEffect(() => {
     if (selectedTopic === '') return
     const fetchVideos = async () => {
-        
-      let getVideos = true
-      let response
-      let results
-      let instance = getRandomInstance()
-      while (getVideos) {
-        try {
-          response = await fetch(`${instance}/api/v1/search?q=${selectedTopic}&type=video`)
-          results = await response.json()
-          getVideos = false
-        } catch {
-          instance = getRandomInstance()
-        }
-      }
-     
+      
       let videos = []
-      for (const result of results) {
-        videos.push({
-          title: result.title,
-          thumbnailUrl: `https://i.ytimg.com/vi/${result.videoId}/maxresdefault.jpg`,
-          views: result.viewCount
-        })
+      let currentPage = 1
+
+      while(videos.length < 40) {
+        
+        try {
+          const instance = getRandomInstance()
+          const response = await fetch(`${instance}/api/v1/search?q=${selectedTopic}&type=video&sort_by=rating&page=${currentPage}`)
+          const results = await response.json()
+
+          for (const result of results) {
+            videos.push({
+              title: result.title,
+              thumbnailUrl: `https://i.ytimg.com/vi/${result.videoId}/mqdefault.jpg`,
+              views: result.viewCount
+            })
+          }
+
+          currentPage++
+        } catch {} // there is no need to catch in case an instance doesn't work
       }
+
       setVideos(videos)
     }
     
@@ -71,8 +71,7 @@ const App = () => {
   }, [startGame])
 
   const topics = [
-    "Gaming", "Science", "Programming", "Technology",
-    "Basketball", "Football", "Podcasts"
+    "Gaming", "Programming", "Video Games", "Game Development",
   ]
 
   return (
