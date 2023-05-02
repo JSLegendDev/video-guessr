@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { TopicSelectionMenu } from "./components/Topic"
 import { Game } from "./components/Game"
 import { getRandomInstance } from "./instances"
+import { topicQueries, topics } from "./topics"
 
 export interface Video {
   title: string
@@ -36,20 +37,43 @@ const App = () => {
 
   const [startGame, setStartGame] = useState(false)
   const [selectedTopic, setSelectedTopic] = useState('')
+  const [selectedTopicQuery, setSelectedTopicQuery] = useState('')
   const [videos, setVideos] = useState<Array<Video>>([])
+
+  window.addEventListener('load', (e) => {
+    e.preventDefault()
+    if (window.location.pathname.includes('game')) {
+      window.location.pathname = ''
+    }
+  })
+
+  window.addEventListener('popstate', () => {
+    if (!window.location.pathname.includes('game')) {
+      setStartGame(false)
+      setSelectedTopic('')
+      setVideos([])
+    }
+  })
+
+  useEffect(() => {
+    if (startGame && !window.location.href.includes('game')) {
+      window.history.pushState('game', 'Video Guessr', window.location.href + 'game')
+    }
+  }, [startGame])
 
   useEffect(() => {
     if (selectedTopic === '') return
+    
     const fetchVideos = async () => {
       
       let videos = []
       let currentPage = 1
 
-      while(videos.length < 50) {
+      while(videos.length < 30) {
         
         try {
           const instance = getRandomInstance()
-          const response = await fetch(`${instance}/api/v1/search?q="${selectedTopic} videos"&type=video&sort_by=rating&page=${currentPage}`)
+          const response = await fetch(`${instance}/api/v1/search?q="${selectedTopicQuery}"&type=video&sort_by=rating&page=${currentPage}`)
           const results = await response.json()
 
           for (const result of results) {
@@ -62,17 +86,13 @@ const App = () => {
 
           currentPage++
         } catch {} // there is no need to catch in case an instance doesn't work
-      }``
+      }
 
       setVideos(videos)
     }
     
     fetchVideos()
   }, [startGame])
-
-  const topics = [
-    "Mario", "Programming Tutorials", "Minecraft", "Game Development",
-  ]
 
   return (
     <>
@@ -89,10 +109,17 @@ const App = () => {
             <TopicSelectionMenu 
               topics={topics} 
               selectedTopic={selectedTopic}
-              setSelectedTopic={setSelectedTopic}
+              selectTopicAndQuery={(topic: string) => {
+                setSelectedTopic(topic)
+                const currentTopicQueries = topicQueries[topic]
+                setSelectedTopicQuery(currentTopicQueries[Math.floor(Math.random() * currentTopicQueries.length)])
+              }}
             />
             <div>
-              <StartBtn disabled={selectedTopic === ''} handler={() => setStartGame(true)} />
+              <StartBtn disabled={selectedTopic === ''} handler={() => {
+                setStartGame(true)
+                setVideos([])
+              }} />
             </div>
           </>
         }
@@ -100,9 +127,13 @@ const App = () => {
           <span>Loading...</span>
         )}
         {startGame && videos.length !== 0 && (
-          <Game videos={videos} endGameCallBack={() => setStartGame(false)} />
+          <Game 
+            videos={videos}
+            endGameCallBack={() => setStartGame(false)}
+            totalNumberOfQuestions={20} 
+          />
         )}
-    </div>
+      </div>
     </>
   )
 }

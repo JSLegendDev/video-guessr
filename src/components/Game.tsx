@@ -64,10 +64,12 @@ const VideoContainer = ({
 
 export const Game = ({
   videos,
-  endGameCallBack
+  endGameCallBack,
+  totalNumberOfQuestions,
 }:{
   videos: Array<Video>,
   endGameCallBack: () => void,
+  totalNumberOfQuestions: number
 }) => {
   
   const [points, setPoints] = useState(0)
@@ -79,70 +81,62 @@ export const Game = ({
   const [showResults, setShowResults] = useState(false)
   const [isGameOver, setIsGameOver] = useState(false)
 
-  const removeFromVideos = (video: Video) => {
-    for (let i = 0; i < videos.length; i++) {
-      if (videos[i] === video) {
-        videos.splice(i, 1)
-      }
-    }
-  }
-
-  useEffect(() => {
-
+  const selectVideosForQuestion = () => {
     const firstVideo = videos[Math.floor(Math.random() * videos.length)]
-    
-    removeFromVideos(firstVideo)
     setFirstVideo(firstVideo)
 
     const secondVideo = videos[Math.floor(Math.random() * videos.length)]
-    removeFromVideos(secondVideo)
     setSecondVideo(secondVideo)
 
     if (firstVideo.views > secondVideo.views) setMostPopularVideo('first')
     if (firstVideo.views < secondVideo.views) setMostPopularVideo('second')
-  }, [])
+  }
+
+  useEffect(() => selectVideosForQuestion(), [])
 
   return (
       <>
-        <div className="flex flex-wrap justify-center">
-          <p className="mr-2 text-center">Points : {points}</p>
-          <p className="ml-2">Question No : {currentQuestionNb}/20</p>
-        </div>
         { !isGameOver &&
-          <div className="flex flex-wrap flex-row justify-center">
-            <VideoContainer 
-              video={firstVideo} 
-              onClick={() => setSelectedVideo('first')} 
-              selected={selectedVideo === 'first'}
-              displayViews={showResults}
-              isMostPopular={mostPopularVideo === 'first'} 
-            />
-            <VideoContainer 
-              video={secondVideo} 
-              onClick={() => setSelectedVideo('second')}
-              selected={selectedVideo === 'second'}
-              displayViews={showResults}
-              isMostPopular={mostPopularVideo === 'second'} 
-            />
-          </div>
+          <>
+            <div className="flex flex-wrap justify-center">
+              <p className="mr-2 text-center">Points : {points}</p>
+              <p className="ml-2">Question No : {currentQuestionNb}/{totalNumberOfQuestions}</p>
+            </div>
+            <div className="flex flex-wrap flex-row justify-center">
+              <VideoContainer 
+                video={firstVideo} 
+                onClick={() => setSelectedVideo('first')} 
+                selected={selectedVideo === 'first'}
+                displayViews={showResults}
+                isMostPopular={mostPopularVideo === 'first'} 
+              />
+              <VideoContainer 
+                video={secondVideo} 
+                onClick={() => setSelectedVideo('second')}
+                selected={selectedVideo === 'second'}
+                displayViews={showResults}
+                isMostPopular={mostPopularVideo === 'second'} 
+              />
+            </div>
+          </>
         }
         {
           selectedVideo !== 'none' && !showResults && !isGameOver && 
           <div className="flex flex-wrap flex-col justify-center">
             <p>You selected the {selectedVideo} video. Are you sure?</p>
             <button className="
-            bg-red-500
-            hover:bg-red-700 
-            text-white 
-            rounded-full
-            py-1 
-            px-4 
-            m-2
-            "
-            onClick={() => {
-              if (mostPopularVideo === selectedVideo) setPoints(points + 1)
-              setShowResults(true)
-            }}
+                bg-red-500
+                hover:bg-red-700 
+                text-white 
+                rounded-full
+                py-1 
+                px-4 
+                m-2
+              "
+              onClick={() => {
+                if (mostPopularVideo === selectedVideo) setPoints(points + 1)
+                setShowResults(true)
+              }}
             >Confirm</button>
           </div>
         }
@@ -161,25 +155,16 @@ export const Game = ({
             m-2
             "
             onClick={() => {
-              setCurrentQuestionNb(currentQuestionNb + 1)
               setShowResults(false)
-              if (currentQuestionNb === 20) {
+              if (currentQuestionNb === totalNumberOfQuestions) {
                 setIsGameOver(true)
                 return
               }
-              
-              const firstVideo = videos[Math.floor(Math.random() * videos.length)]
-              removeFromVideos(firstVideo)
-              setFirstVideo(firstVideo)
 
-              const secondVideo = videos[Math.floor(Math.random() * videos.length)]
-              removeFromVideos(secondVideo)
-              setSecondVideo(secondVideo)
-
+              setCurrentQuestionNb(currentQuestionNb + 1)
+              selectVideosForQuestion()
               setSelectedVideo('none')
 
-              if (firstVideo.views > secondVideo.views) setMostPopularVideo('first')
-              if (firstVideo.views < secondVideo.views) setMostPopularVideo('second')
             }}
             >Next</button>
           </div>
@@ -189,6 +174,9 @@ export const Game = ({
           isGameOver &&
           <div className="flex flex-wrap flex-col justify-center">
             <p className="text-center text-3xl font-bold m-8">Game is over!</p>
+            <p className="text-center text-2xl font-bold italic m-8">
+              Your grade : {points}/{totalNumberOfQuestions} ({Math.round(points/totalNumberOfQuestions * 100)}%)
+            </p>
             <button className="
               bg-red-500
               hover:bg-red-700 

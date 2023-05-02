@@ -20,11 +20,11 @@ export const TopicBtn = ({name, handler}:{name: string, handler: () => void}) =>
 export const TopicSelectionMenu = ({
         topics,
         selectedTopic, 
-        setSelectedTopic,
+        selectTopicAndQuery,
     }: {
         topics: Array<string>,
         selectedTopic: string,
-        setSelectedTopic: React.Dispatch<React.SetStateAction<string>>,
+        selectTopicAndQuery: (topic : string) => void,
     }) => {
     return (
         <>
@@ -32,7 +32,9 @@ export const TopicSelectionMenu = ({
                 <h2 className="text-center">Choose a topic</h2>
                 <div className="flex flex-wrap flex-row justify-center">
                     {topics.map((topic, index) => {
-                    return <TopicBtn key={index} name={topic} handler={() => {setSelectedTopic(topic)}} />
+                    return <TopicBtn key={index} name={topic} handler={() => {
+                        selectTopicAndQuery(topic)
+                    }} />
                     })}
                 </div>
             </div>
