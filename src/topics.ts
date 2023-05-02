@@ -1,13 +1,10 @@
 export const topics = [
     "Basketball",
-    "Soccer",
-    "Martial Arts",
-    "Programming Tutorials",
+    "Programming",
     "Minecraft",
     "Game Development",
-    "Sports", "Math", "Chemistry", "Computer Science",
-    "Vlogs", "Skateboarding", "Tech Repair", "Tech Reviews", "Cartoons",
-    "Book Reviews", "Documentaries"
+    "Gaming",
+    "Documentaries"
 ]
 
 
@@ -19,17 +16,23 @@ export const topicQueries : {[key:string] : Array<string>} = {
         "NBA legend",
         "basketball 1v1 vs trash talker"
     ],
-    "Martial Arts": [
-        "judo",
-        "bjj",
-        "top martial arts",
-        "boxing",
-        "muai thai",
-        "karate",
-        "wing chun"
-    ],
     "Game Development": [
         "gamedev",
-        "devlog"
+        "devlog",
+        "game design"
+    ],
+    "Gaming": [
+        "video game reviews",
+        "video game analysis",
+    ],
+    "Minecraft": [
+        "minecraft 100 days challenge",
+        "minecraft manhunt",
+        "minecraft bedwars"
+    ],
+    "Programming": [
+        "javascript tutorials",
+        "python tutorials",
+        "frontend tutorials"
     ]
 }

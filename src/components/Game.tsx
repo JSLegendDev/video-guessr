@@ -28,20 +28,20 @@ const VideoContainer = ({
       m-2
       flex
       flex-col
-      ${selected && !displayViews ? "bg-blue-200" : null}
-      ${displayViews && isMostPopular ? "bg-green-200" : null}
-      ${displayViews && !isMostPopular ? "bg-red-200" : null}
+      ${selected && !displayViews ? "bg-blue-200 drop-shadow-md" : null}
+      ${displayViews && isMostPopular ? "bg-green-200 drop-shadow-md" : null}
+      ${displayViews && !isMostPopular ? "bg-red-200 drop-shadow-md" : null}
       `}
       >
       <img 
-        className="rounded-md border border-gray-100 shadow-sm" 
+        className="border rounded" 
         onClick={() => setDisplayLowresImg(true)}
         src={
           displayLowresImg ? video.thumbnailUrl + "/mqdefault.jpg" : video.thumbnailUrl + "/maxresdefault.jpg"
         } 
       />
-      <p className="flex-1">{video.title}</p>
-      { displayViews ? <p>{video.views.toLocaleString()} views</p> :
+      <p className="flex-1 mb-1 font-semibold text-left text-slate-700">{video.title}</p>
+      { displayViews ? <p className="font-bold text-left text-slate-700">{video.views.toLocaleString()} views</p> :
           <button 
             className={`
               bg-blue-500
@@ -98,7 +98,7 @@ export const Game = ({
       <>
         { !isGameOver &&
           <>
-            <div className="flex flex-wrap justify-center">
+            <div className="flex flex-wrap justify-center text-slate-700">
               <p className="mr-2 text-center">Points : {points}</p>
               <p className="ml-2">Question No : {currentQuestionNb}/{totalNumberOfQuestions}</p>
             </div>
@@ -190,6 +190,8 @@ export const Game = ({
             >Play again</button>
           </div>
         }
+
+        <span className="font-medium italic p-8"> Note : If the thumbnail for a video doesn't load. Click on the placeholder image to reload.</span>
       </>
   )
 }

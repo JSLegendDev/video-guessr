@@ -98,8 +98,8 @@ const App = () => {
     <>
       <header className="flex justify-center items-center h-20 bg-blue-100">
           <div className="columns-1">
-            <h1 className="text-2xl font-bold text-center">Video Guessr</h1>
-            <div className="ml-2 mr-2 text-center">Guess which videos has more views by looking only at the thumbnail + title.</div>
+            <h1 className="text-2xl font-bold italic text-center text-slate-700">Video Guessr</h1>
+            <div className="ml-2 mr-2 text-center text-slate-700">Guess which videos has more views by looking only at the thumbnail + title.</div>
           </div>
       </header>
 
@@ -130,7 +130,7 @@ const App = () => {
           <Game 
             videos={videos}
             endGameCallBack={() => setStartGame(false)}
-            totalNumberOfQuestions={20} 
+            totalNumberOfQuestions={10} 
           />
         )}
       </div>
