@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { StartBtn, TopicSelectionMenu } from "./components"
 import { Game } from "./Game"
-import { getRandomInstance } from "./instances"
+import { fetchVideos, getRandomInstance } from "./utils"
 import { topicQueries, topics } from "./topics"
 import { Video } from "./types"
 
@@ -31,39 +31,9 @@ const App = () => {
     if (startGame && !window.location.href.includes('game')) {
       window.history.pushState('game', 'Video Guessr', window.location.href + 'game')
     }
-  }, [startGame])
 
-  useEffect(() => {
     if (selectedTopic === '') return
-    
-    const fetchVideos = async () => {
-      
-      let videos = []
-      let currentPage = 1
-
-      while(videos.length < 30) {
-        
-        try {
-          const instance = getRandomInstance()
-          const response = await fetch(`${instance}/api/v1/search?q="${selectedTopicQuery}"&type=video&sort_by=rating&page=${currentPage}`)
-          const results = await response.json()
-
-          for (const result of results) {
-            videos.push({
-              title: result.title,
-              thumbnailUrl: `https://i.ytimg.com/vi/${result.videoId}`,
-              views: result.viewCount
-            })
-          }
-
-          currentPage++
-        } catch {} // there is no need to catch in case an instance doesn't work
-      }
-
-      setVideos(videos)
-    }
-    
-    fetchVideos()
+    fetchVideos(selectedTopicQuery, setVideos)
   }, [startGame])
 
   return (

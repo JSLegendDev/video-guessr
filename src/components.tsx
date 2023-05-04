@@ -118,7 +118,7 @@ export const TopicSelectionMenu = ({
                 </div>
             </div>
             <div>
-            <span>
+            <span className="text-slate-700">
                 {selectedTopic === '' ? 'Select a topic to proceed' : `You have selected the topic (${selectedTopic})`}
             </span>
             </div>
