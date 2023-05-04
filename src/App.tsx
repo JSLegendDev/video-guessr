@@ -1,37 +1,9 @@
 import { useEffect, useState } from "react"
-import { TopicSelectionMenu } from "./components/Topic"
-import { Game } from "./components/Game"
+import { StartBtn, TopicSelectionMenu } from "./components"
+import { Game } from "./Game"
 import { getRandomInstance } from "./instances"
 import { topicQueries, topics } from "./topics"
-
-export interface Video {
-  title: string
-  thumbnailUrl: string
-  views: number
-}
-
-const StartBtn = ({disabled, handler}:{disabled: boolean, handler: () => void}) => {
-  return (
-    <button
-      className="
-      bg-red-500
-      hover:bg-red-700 
-      text-white 
-      rounded-full 
-      py-1 
-      px-4 
-      m-2
-      text-center
-      disabled:cursor-not-allowed
-      disabled:opacity-50
-      "
-      disabled={disabled}
-      onClick={handler}
-    >
-      Start
-    </button>
-  )
-}
+import { Video } from "./types"
 
 const App = () => {
 
