@@ -29,7 +29,7 @@ export const TopicSelectionMenu = ({
     return (
         <>
             <div>
-                <h2 className="text-center">Choose a topic</h2>
+                <h2 className="text-center text-slate-700">Choose a topic</h2>
                 <div className="flex flex-wrap flex-row justify-center">
                     {topics.map((topic, index) => {
                     return <TopicBtn key={index} name={topic} handler={() => {

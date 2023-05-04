@@ -3,8 +3,7 @@ export const topics = [
     "Programming",
     "Minecraft",
     "Game Development",
-    "Gaming",
-    "Documentaries"
+    "Gaming"
 ]
 
 
@@ -13,8 +12,7 @@ export const topicQueries : {[key:string] : Array<string>} = {
         "NBA basketball highlights",
         "streetball", 
         "basketball youtubers",
-        "NBA legend",
-        "basketball 1v1 vs trash talker"
+        "NBA legend"
     ],
     "Game Development": [
         "gamedev",

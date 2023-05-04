@@ -173,8 +173,8 @@ export const Game = ({
         {
           isGameOver &&
           <div className="flex flex-wrap flex-col justify-center">
-            <p className="text-center text-3xl font-bold m-8">Game is over!</p>
-            <p className="text-center text-2xl font-bold italic m-8">
+            <p className="text-center text-3xl font-bold m-8 text-slate-700">Game is over!</p>
+            <p className="text-center text-2xl font-bold italic m-8 text-slate-700">
               Your grade : {points}/{totalNumberOfQuestions} ({Math.round(points/totalNumberOfQuestions * 100)}%)
             </p>
             <button className="
@@ -191,7 +191,7 @@ export const Game = ({
           </div>
         }
 
-        <span className="font-medium italic p-8"> Note : If the thumbnail for a video doesn't load. Click on the placeholder image to reload.</span>
+        <span className="font-medium italic p-8 text-slate-700"> Note : If the thumbnail for a video doesn't load. Click on the placeholder image to reload.</span>
       </>
   )
 }
