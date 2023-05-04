@@ -1,29 +1,6 @@
 import { useState, useEffect } from "react"
 import { Video } from "./types"
 
-export const StartBtn = ({disabled, handler}:{disabled: boolean, handler: () => void}) => {
-    return (
-        <button
-        className="
-        bg-red-500
-        hover:bg-red-700 
-        text-white 
-        rounded-full 
-        py-1 
-        px-4 
-        m-2
-        text-center
-        disabled:cursor-not-allowed
-        disabled:opacity-50
-        "
-        disabled={disabled}
-        onClick={handler}
-        >
-        Start
-        </button>
-    )
-}
-
 export const VideoContainer = ({
     video, 
     onClick,
@@ -64,7 +41,7 @@ export const VideoContainer = ({
             } 
         />
         <p className="flex-1 mb-1 font-semibold text-left text-slate-700">{video.title}</p>
-        { displayViews ? <p className="font-bold text-left text-slate-700">{video.views.toLocaleString()} views</p> :
+        { displayViews ? <p className={`font-bold text-left ${isMostPopular ? "text-2xl" : null} text-slate-700`}>{video.views.toLocaleString()} views</p> :
             <button 
                 className={`
                 bg-blue-500

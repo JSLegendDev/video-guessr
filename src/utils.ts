@@ -1,6 +1,6 @@
 // Here we store a list of instances for the invidious API
 // we can use as to avoid rate limiting.
-export const getRandomInstance = () => {
+const getRandomInstance = () => {
     const INSTANCES = [
         "https://vid.puffyan.us",
         "https://inv.riverside.rocks",

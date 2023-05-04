@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
-import { StartBtn, TopicSelectionMenu } from "./components"
+import { TopicSelectionMenu } from "./components"
 import { Game } from "./Game"
-import { fetchVideos, getRandomInstance } from "./utils"
+import { fetchVideos } from "./utils"
 import { topicQueries, topics } from "./topics"
 import { Video } from "./types"
 
@@ -58,10 +58,27 @@ const App = () => {
               }}
             />
             <div>
-              <StartBtn disabled={selectedTopic === ''} handler={() => {
-                setStartGame(true)
-                setVideos([])
-              }} />
+              <button
+                className="
+                bg-red-500
+                hover:bg-red-700 
+                text-white 
+                rounded-full 
+                py-1 
+                px-4 
+                m-2
+                text-center
+                disabled:cursor-not-allowed
+                disabled:opacity-50
+                "
+                disabled={selectedTopic === ''}
+                onClick={() => {
+                  setStartGame(true)
+                  setVideos([])
+                }}
+              >
+                Start
+              </button>
             </div>
           </>
         }
