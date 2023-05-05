@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { Video } from "./types"
-import { VideoContainer } from "./Components"
+import { VideoContainer } from "./components2"
 import { redButtonStyles } from "./stylesets"
 
 export const Game = ({
