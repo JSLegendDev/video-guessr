@@ -89,7 +89,11 @@ const App = () => {
         {startGame && videos.length !== 0 && (
           <Game 
             videos={videos}
-            endGameCallBack={() => setStartGame(false)}
+            endGameCallBack={() => {
+              setStartGame(false)
+              setSelectedTopic('')
+              setSelectedTopicQuery('')
+            }}
             totalNumberOfQuestions={10} 
           />
         )}
