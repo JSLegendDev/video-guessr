@@ -1,5 +1,5 @@
 # Video Guessr
-A game about guessing which videos is the most popular (has the most views) by only looking
+A game about guessing which video between two is the most popular (has the most views) by only looking
 at the thumbnail and the title.
 
 This project was made with Vite, React, TypeScript, Tailwind css.
