@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { TopicSelectionMenu } from "./components2"
+import { TopicSelectionMenu } from "./Components"
 import { Game } from "./Game"
 import { fetchVideos } from "./utils"
 import { topicQueries, topics } from "./topics"
