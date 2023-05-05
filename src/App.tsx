@@ -12,8 +12,7 @@ const App = () => {
   const [selectedTopicQuery, setSelectedTopicQuery] = useState('')
   const [videos, setVideos] = useState<Array<Video>>([])
 
-  window.addEventListener('load', (e) => {
-    e.preventDefault()
+  window.addEventListener('load', () => {
     if (window.location.pathname.includes('game')) {
       window.location.pathname = ''
     }
@@ -41,7 +40,9 @@ const App = () => {
       <header className="flex justify-center items-center h-20 bg-blue-100">
           <div className="columns-1">
             <h1 className="text-2xl font-bold italic text-center text-slate-700">Video Guessr</h1>
-            <div className="ml-2 mr-2 text-center text-slate-700">Guess which videos has more views by looking only at the thumbnail + title.</div>
+            <p className="ml-2 mr-2 text-center text-slate-700">
+              Guess which videos has more views by looking only at the thumbnail + title.
+            </p>
           </div>
       </header>
 

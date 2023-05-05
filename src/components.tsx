@@ -37,8 +37,8 @@ export const VideoContainer = ({
             className="border rounded" 
             onClick={() => setDisplayLowresImg(true)}
             src={
-            displayLowresImg ? video.thumbnailUrl + "/mqdefault.jpg" : video.thumbnailUrl + "/maxresdefault.jpg"
-            } 
+                displayLowresImg ? video.thumbnailUrl + "/mqdefault.jpg" : video.thumbnailUrl + "/maxresdefault.jpg"
+            }
         />
         <p className="flex-1 mb-1 font-semibold text-left text-slate-700">{video.title}</p>
         { displayViews ? <p className={`font-bold text-left ${isMostPopular ? "text-2xl" : null} text-slate-700`}>{video.views.toLocaleString()} views</p> :

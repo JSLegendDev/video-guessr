@@ -112,7 +112,9 @@ export const Game = ({
           </div>
         }
 
-        <span className="font-medium italic p-8 text-slate-700"> Note : If the thumbnail for a video doesn't load. Click on the placeholder image to reload.</span>
+        <span className="font-medium italic p-8 text-slate-700">
+          Note : If the thumbnail for a video doesn't load. Click on the placeholder image to reload.
+        </span>
       </>
   )
 }
