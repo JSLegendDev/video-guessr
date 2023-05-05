@@ -7,7 +7,7 @@ export const VideoContainer = ({
     selected,
     displayViews,
     isMostPopular
-}: {
+}:{
     video: Video,
     onClick: () => void,
     selected: boolean,
@@ -47,7 +47,7 @@ export const VideoContainer = ({
                 bg-blue-500
                 ${!selected ? "hover:bg-blue-700" : null} 
                 text-white 
-                rounded-full 
+                rounded-md 
                 py-1 
                 px-4 
                 m-2

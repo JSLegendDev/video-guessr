@@ -22,6 +22,8 @@ export const topicQueries : {[key:string] : Array<string>} = {
     "Gaming": [
         "video game reviews",
         "video game analysis",
+        "video game speedruns",
+        "video game challenges"
     ],
     "Minecraft": [
         "minecraft 100 days challenge",

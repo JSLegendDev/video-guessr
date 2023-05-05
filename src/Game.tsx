@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { Video } from "./types"
-import { VideoContainer } from "./components"
+import { VideoContainer } from "./Components"
+import { redButtonStyles } from "./stylesets"
 
 export const Game = ({
   videos,
@@ -25,7 +26,11 @@ export const Game = ({
     const firstVideo = videos[Math.floor(Math.random() * videos.length)]
     setFirstVideo(firstVideo)
 
-    const secondVideo = videos[Math.floor(Math.random() * videos.length)]
+    let secondVideo = videos[Math.floor(Math.random() * videos.length)]
+    //prevent picking the same video twice
+    while (secondVideo.title === firstVideo.title) {
+      secondVideo = videos[Math.floor(Math.random() * videos.length)]
+    }
     setSecondVideo(secondVideo)
 
     if (firstVideo.views > secondVideo.views) setMostPopularVideo('first')
@@ -39,8 +44,8 @@ export const Game = ({
         { !isGameOver &&
           <>
             <div className="flex flex-wrap justify-center text-slate-700">
-              <p className="mr-2 text-center">Points : {points}</p>
-              <p className="ml-2">Question No : {currentQuestionNb}/{totalNumberOfQuestions}</p>
+              <p className="mr-2 text-center font-bold text-2xl">Points : {points}</p>
+              <p className="ml-2 font-bold text-2xl">Question No : {currentQuestionNb}/{totalNumberOfQuestions}</p>
             </div>
             <div className="flex flex-wrap flex-row justify-center">
               <VideoContainer 
@@ -64,15 +69,7 @@ export const Game = ({
           selectedVideo !== 'none' && !showResults && !isGameOver && 
           <div className="flex flex-wrap flex-col justify-center">
             <p>You selected the {selectedVideo} video. Are you sure?</p>
-            <button className="
-                bg-red-500
-                hover:bg-red-700 
-                text-white 
-                rounded-full
-                py-1 
-                px-4 
-                m-2
-              "
+            <button className={redButtonStyles}
               onClick={() => {
                 if (mostPopularVideo === selectedVideo) setPoints(points + 1)
                 setShowResults(true)
@@ -85,15 +82,7 @@ export const Game = ({
           <div className="flex flex-wrap flex-col justify-center">
             <p>{mostPopularVideo === selectedVideo ? 'You were right!' : 'You were wrong!'}</p>
             <button
-            className="
-            bg-red-500
-            hover:bg-red-700 
-            text-white 
-            rounded-full 
-            py-1 
-            px-4 
-            m-2
-            "
+            className={redButtonStyles}
             onClick={() => {
               setShowResults(false)
               if (currentQuestionNb === totalNumberOfQuestions) {
@@ -117,15 +106,7 @@ export const Game = ({
             <p className="text-center text-2xl font-bold italic m-8 text-slate-700">
               Your grade : {points}/{totalNumberOfQuestions} ({Math.round(points/totalNumberOfQuestions * 100)}%)
             </p>
-            <button className="
-              bg-red-500
-              hover:bg-red-700 
-              text-white 
-              rounded-full 
-              py-1 
-              px-4 
-              m-8
-            "
+            <button className={redButtonStyles}
             onClick={endGameCallBack}
             >Play again</button>
           </div>

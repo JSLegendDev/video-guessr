@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { TopicSelectionMenu } from "./components"
+import { TopicSelectionMenu } from "./Components"
 import { Game } from "./Game"
 import { fetchVideos } from "./utils"
 import { topicQueries, topics } from "./topics"
@@ -63,9 +63,9 @@ const App = () => {
                 bg-red-500
                 hover:bg-red-700 
                 text-white 
-                rounded-full 
+                rounded-md 
                 py-1 
-                px-4 
+                px-32 
                 m-2
                 text-center
                 disabled:cursor-not-allowed
