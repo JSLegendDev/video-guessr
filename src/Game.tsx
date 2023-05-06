@@ -3,7 +3,7 @@ import { Video } from "./types"
 import { VideoContainer } from "./Components"
 import { redButtonStyles } from "./stylesets"
 
-export const Game = ({
+export function Game({
   videos,
   endGameCallBack,
   totalNumberOfQuestions,
@@ -11,7 +11,7 @@ export const Game = ({
   videos: Array<Video>,
   endGameCallBack: () => void,
   totalNumberOfQuestions: number
-}) => {
+}) {
   
   const [points, setPoints] = useState(0)
   const [currentQuestionNb, setCurrentQuestionNb] = useState(1)

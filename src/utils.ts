@@ -1,6 +1,6 @@
 // Here we store a list of instances for the invidious API
 // we can use as to avoid rate limiting.
-const getRandomInstance = () => {
+function getRandomInstance() {
     const INSTANCES = [
         "https://vid.puffyan.us",
         "https://inv.riverside.rocks",
@@ -14,7 +14,7 @@ const getRandomInstance = () => {
     return INSTANCES[Math.floor(Math.random() * INSTANCES.length)] 
 }
 
-export const fetchVideos = async (query : string, setVideos: Function) => {
+export async function fetchVideos(query : string, setVideos: Function) {
     
     let videos = []
     let currentPage = 1

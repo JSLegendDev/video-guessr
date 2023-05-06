@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Video } from "./types"
 
-export const VideoContainer = ({
+export function VideoContainer({
     video, 
     onClick,
     selected,
@@ -13,7 +13,7 @@ export const VideoContainer = ({
     selected: boolean,
     displayViews: boolean
     isMostPopular: boolean
-}) => {
+}) {
 
     const [displayLowresImg, setDisplayLowresImg] = useState(false)
 
@@ -62,15 +62,15 @@ export const VideoContainer = ({
     )
 }
 
-export const TopicSelectionMenu = ({
-        topics,
-        selectedTopic, 
-        selectTopicAndQuery,
-    }: {
-        topics: Array<string>,
-        selectedTopic: string,
-        selectTopicAndQuery: (topic : string) => void,
-    }) => {
+export function TopicSelectionMenu({
+    topics,
+    selectedTopic, 
+    selectTopicAndQuery,
+}: {
+    topics: Array<string>,
+    selectedTopic: string,
+    selectTopicAndQuery: (topic : string) => void,
+}) {
     return (
         <>
             <div>

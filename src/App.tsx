@@ -5,12 +5,19 @@ import { fetchVideos } from "./utils"
 import { topicQueries, topics } from "./topics"
 import { Video } from "./types"
 
-const App = () => {
+function App() {
 
   const [startGame, setStartGame] = useState(false)
   const [selectedTopic, setSelectedTopic] = useState('')
   const [selectedTopicQuery, setSelectedTopicQuery] = useState('')
   const [videos, setVideos] = useState<Array<Video>>([])
+
+  function clearGame() {
+    setStartGame(false)
+    setSelectedTopic('')
+    setSelectedTopicQuery('')
+    setVideos([])
+  }
 
   window.addEventListener('load', () => {
     if (window.location.pathname.includes('game')) {
@@ -20,9 +27,7 @@ const App = () => {
 
   window.addEventListener('popstate', () => {
     if (!window.location.pathname.includes('game')) {
-      setStartGame(false)
-      setSelectedTopic('')
-      setVideos([])
+      clearGame()
     }
   })
 
@@ -75,7 +80,6 @@ const App = () => {
                 disabled={selectedTopic === ''}
                 onClick={() => {
                   setStartGame(true)
-                  setVideos([])
                 }}
               >
                 Start
@@ -89,11 +93,7 @@ const App = () => {
         {startGame && videos.length !== 0 && (
           <Game 
             videos={videos}
-            endGameCallBack={() => {
-              setStartGame(false)
-              setSelectedTopic('')
-              setSelectedTopicQuery('')
-            }}
+            endGameCallBack={() => clearGame()}
             totalNumberOfQuestions={10} 
           />
         )}
