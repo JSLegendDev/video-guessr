@@ -84,7 +84,7 @@ export function TopicSelectionMenu({
                         bg-blue-500
                         hover:bg-blue-700 
                         text-white 
-                        rounded-full 
+                        rounded-md
                         py-1 
                         px-4 
                         m-1
