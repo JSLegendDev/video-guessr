@@ -22,7 +22,7 @@ export function Game({
   const [showResults, setShowResults] = useState(false)
   const [isGameOver, setIsGameOver] = useState(false)
 
-  const selectVideosForQuestion = () => {
+  function selectVideosForQuestion() {
     const firstVideo = videos[Math.floor(Math.random() * videos.length)]
     setFirstVideo(firstVideo)
 
