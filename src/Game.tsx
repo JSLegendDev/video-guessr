@@ -6,7 +6,7 @@ import { redButtonStyles } from "./stylesets"
 export function Game({
   videos,
   endGameCallBack,
-  totalNumberOfQuestions,
+  totalNumberOfQuestions
 }:{
   videos: Array<Video>,
   endGameCallBack: () => void,
