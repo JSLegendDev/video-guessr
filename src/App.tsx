@@ -63,28 +63,26 @@ function App() {
                 setSelectedTopicQuery(currentTopicQueries[Math.floor(Math.random() * currentTopicQueries.length)])
               }}
             />
-            <div>
-              <button
-                className="
-                bg-red-500
-                hover:bg-red-700 
-                text-white 
-                rounded-md 
-                py-1 
-                px-32 
-                m-2
-                text-center
-                disabled:cursor-not-allowed
-                disabled:opacity-50
-                "
-                disabled={selectedTopic === ''}
-                onClick={() => {
-                  setStartGame(true)
-                }}
-              >
-                Start
-              </button>
-            </div>
+            <button
+              className="
+              bg-red-500
+              hover:bg-red-700 
+              text-white 
+              rounded-md 
+              py-1 
+              px-32 
+              m-2
+              text-center
+              disabled:cursor-not-allowed
+              disabled:opacity-50
+              "
+              disabled={selectedTopic === ''}
+              onClick={() => {
+                setStartGame(true)
+              }}
+            >
+              Start
+            </button>
           </>
         }
         {startGame && videos.length === 0 && (
