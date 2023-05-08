@@ -42,13 +42,11 @@ function App() {
 
   return (
     <>
-      <header className="flex justify-center items-center h-20 bg-blue-100">
-          <div className="columns-1">
-            <h1 className="text-2xl font-bold italic text-center text-slate-700">Video Guessr</h1>
-            <p className="ml-2 mr-2 text-center text-slate-700">
-              Guess which videos has more views by looking only at the thumbnail + title.
-            </p>
-          </div>
+      <header className="flex flex-col bg-blue-100 py-2">
+          <h1 className="text-2xl font-bold italic text-center text-slate-700">Video Guessr</h1>
+          <p className="mx-2 text-center text-slate-700">
+            Guess which videos has more views by looking only at the thumbnail + title.
+          </p>
       </header>
 
       <div className="flex flex-col items-center">
