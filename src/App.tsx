@@ -89,7 +89,7 @@ function App() {
         {startGame && videos.length !== 0 && (
           <Game 
             videos={videos}
-            endGameCallBack={() => clearGame()}
+            endGameCallBack={clearGame}
             totalNumberOfQuestions={10} 
           />
         )}
