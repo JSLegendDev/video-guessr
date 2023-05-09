@@ -93,6 +93,8 @@ function App() {
             totalNumberOfQuestions={10} 
           />
         )}
+
+        <h2 className="my-2">Learn how to build this game by watching <a href="https://www.youtube.com/watch?v=5UHM-4Ub7F4" target="_blank" className="text-blue-600 dark:text-blue-500 hover:underline">this tutorial</a>.</h2>
       </div>
     </>
   )
