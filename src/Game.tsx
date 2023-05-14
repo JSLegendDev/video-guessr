@@ -71,7 +71,7 @@ export function Game({
             <p>You selected the {selectedVideo} video. Are you sure?</p>
             <button className={redButtonStyles}
               onClick={() => {
-                if (mostPopularVideo === selectedVideo) setPoints(points + 1)
+                if (mostPopularVideo === selectedVideo) setPoints((points) => points + 1)
                 setShowResults(true)
               }}
             >Confirm</button>
@@ -90,7 +90,7 @@ export function Game({
                 return
               }
 
-              setCurrentQuestionNb(currentQuestionNb + 1)
+              setCurrentQuestionNb((currentQuestionNb) => currentQuestionNb + 1)
               selectVideosForQuestion()
               setSelectedVideo('none')
 
