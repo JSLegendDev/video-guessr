@@ -19,17 +19,31 @@ function App() {
     setVideos([])
   }
 
-  window.addEventListener('load', () => {
-    if (window.location.pathname.includes('game')) {
-      window.location.pathname = ''
-    }
-  })
 
-  window.addEventListener('popstate', () => {
-    if (!window.location.pathname.includes('game')) {
-      clearGame()
+
+  useEffect(() => {
+
+    function loadCallback() {
+      if (window.location.pathname.includes('game')) {
+        window.location.pathname = ''
+      }
     }
-  })
+
+    function popstateCallback() {
+      if (!window.location.pathname.includes('game')) {
+        clearGame()
+      }
+    }
+
+    window.addEventListener('load', loadCallback)
+  
+    window.addEventListener('popstate', popstateCallback)
+
+    return () => {
+      window.removeEventListener('load', loadCallback)
+      window.removeEventListener('popstate', popstateCallback)
+    }
+  }, [])
 
   useEffect(() => {
     if (startGame && !window.location.href.includes('game')) {
@@ -38,7 +52,7 @@ function App() {
 
     if (selectedTopic === '') return
     fetchVideos(selectedTopicQuery, setVideos)
-  }, [startGame])
+  }, [startGame, selectedTopic, selectedTopicQuery])
 
   return (
     <>
